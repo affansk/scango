@@ -11,35 +11,40 @@ import {TextInput} from 'react-native-gesture-handler';
 import {Camera, CameraType} from 'react-native-camera-kit';
 import {useQuery} from '@tanstack/react-query';
 import {getIdByQrCode} from '../../services/api';
+import * as SMS from 'expo-sms';
 const LandingScreen = () => {
   const [name, setName] = useState<string>('');
-  const [qrCode, setQrCode] = useState<string>('');
+  const [qrCode, setQrCode] = useState<string>('-1');
   const [scanning, setScanning] = useState<boolean>(false);
   const {width} = Dimensions.get('screen');
   const styles = getStyles({width});
 
-  // const getDataById = (qrId: string) => {
-  const {
-    data,
-    isLoading,
-    refetch: fetchQrCodeDetails,
-  } = useQuery(['qrCodeInfo'], () => getIdByQrCode(qrCode), {
-    onError: error => {
-      // setChasisDetails({});
-      // setAsyncStorageForChasisNumbers(undefined);
+  const {isLoading: fetchQrCodeLoading, refetch: fetchQrCodeDetails} = useQuery(
+    ['qrCodeInfo', qrCode],
+    () => getIdByQrCode(qrCode),
+    {
+      onError: error => {
+        console.log('error', error);
+      },
+      onSuccess: async res => {
+        const {message, phoneNumber} = res?.data;
+        if (message !== 'error') {
+          const {result} = await SMS.sendSMSAsync(
+            '+971562546537',
+            message.replace('{{Full Name}}', name),
+          );
+          console.log('resull', result);
+        }
+      },
+      retry: false,
+      enabled: false,
     },
-    onSuccess: async result => {
-      const {data, success} = result;
-      
-    },
-    staleTime: 10000,
-    retry: false,
-    enabled: false,
-    cacheTime: 10000,
-  });
+  );
 
   useEffect(() => {
-    fetchQrCodeDetails();
+    if (qrCode.length > 0) {
+      fetchQrCodeDetails();
+    }
   }, [qrCode]);
 
   const handleQRCodeRead = (event: any) => {
@@ -47,6 +52,7 @@ const LandingScreen = () => {
     setQrCode(qrId);
     setScanning(false);
   };
+  console.log();
 
   const showQRCodeCamera = () => {
     return (
@@ -76,7 +82,7 @@ const LandingScreen = () => {
 
   return (
     <View style={styles.container}>
-      {isLoading ? (
+      {fetchQrCodeLoading ? (
         <Text style={[styles.loadingText]}>Loading...</Text>
       ) : scanning ? (
         showQRCodeCamera()

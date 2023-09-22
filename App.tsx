@@ -16,8 +16,8 @@ const App = () => {
   const queryClient = new QueryClient();
 
   return (
-    <SafeAreaProvider>
-      <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+      <SafeAreaProvider>
         <ToastProvider>
           <GestureHandlerRootView
             style={{
@@ -31,8 +31,8 @@ const App = () => {
           </GestureHandlerRootView>
         </ToastProvider>
         {/* <Toast ref={ref => (global['toast'] = ref)} /> */}
-      </QueryClientProvider>
-    </SafeAreaProvider>
+      </SafeAreaProvider>
+    </QueryClientProvider>
   );
 };
 
