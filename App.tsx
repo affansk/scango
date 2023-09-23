@@ -12,9 +12,9 @@ import {ToastProvider} from 'react-native-toast-notifications';
 import Toast from 'react-native-toast-notifications';
 import {QueryClientProvider, QueryClient} from '@tanstack/react-query';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {AppContextProvider} from './src/services/context/AppContext';
 const App = () => {
   const queryClient = new QueryClient();
-
   return (
     <QueryClientProvider client={queryClient}>
       <SafeAreaProvider>
@@ -25,12 +25,14 @@ const App = () => {
             }}>
             <NavigationContainer>
               <StatBar />
-              <AppNavigation />
+              <AppContextProvider>
+                <AppNavigation />
+              </AppContextProvider>
             </NavigationContainer>
             {/* </KeyboardProvider> */}
           </GestureHandlerRootView>
         </ToastProvider>
-        {/* <Toast ref={ref => (global['toast'] = ref)} /> */}
+        <Toast ref={ref => (global['toast'] = ref)} />
       </SafeAreaProvider>
     </QueryClientProvider>
   );
