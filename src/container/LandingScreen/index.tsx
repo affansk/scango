@@ -7,12 +7,13 @@ import {
   Button,
   Dimensions,
   TextInput,
+  Alert,
 } from 'react-native';
 import {useQuery} from '@tanstack/react-query';
 import {getIdByQrCode} from '@app/services/api';
 import {useFirebaseAPI, useGeneralFunction} from '@app/hooks';
 import {OrderModel} from '@app/services/models/appModels';
-import {MyOrders, QrCodeCamera} from '@app/components';
+import {MyOrders, QrCodeCamera, SMS} from '@app/components';
 import {useAppContext} from '@app/services/context/AppContext';
 
 // Get the screen width
@@ -60,14 +61,17 @@ const LandingScreen = () => {
     },
     onSuccess: async res => {
       const {message, phoneNumber, dish} = res?.data;
+      const isSmsAvailable = await SMS.isAvailableAsync();
       const data: OrderModel = {
         uuid: uuid,
         phoneNumber: phoneNumber,
         dish: dish,
       };
-      if (message !== 'error') {
+      if (message !== 'error' && isSmsAvailable) {
         addOrder(data);
         openSms(data, message, name);
+      } else if (!isSmsAvailable) {
+        Alert.alert('Sending Sms not Supported');
       }
     },
   });
