@@ -22,128 +22,101 @@ const LandingScreen = () => {
   const [scanning, setScanning] = useState<boolean>(false);
 
   const styles = getStyles({width});
-  const {getAllOrders, myOrders} = useFirebaseAPI();
+  const {getAllOrders, myOrders, addOrder} = useFirebaseAPI();
   const {openSms} = useGeneralFunction();
   const {state, dispatch} = useAppContext();
-
-  // Function to set the UUID in global state
-  const setUUID = async () => {
-    const newUUID = await DeviceInfo.getUniqueId();
-    dispatch({type: 'SET_UUID', payload: newUUID});
-  };
-
+  const {uuid, qrCode} = state;
   useEffect(() => {
-    setUUID();
-  }, []);
-
-  useEffect(() => {
-    if (state?.uuid !== null) {
-      console.log('state?.uuid', state?.uuid);
+    if (uuid !== null) {
+      console.log('state?.uuid', uuid);
       getAllOrders();
     }
-  }, [state?.uuid]);
+  }, [uuid]);
 
-  const fetchUsers = async () => {
-    return await getIdByQrCode(state?.qrCode);
+  const fetchQr = async () => {
+    return await getIdByQrCode(qrCode);
   };
   const {
-    data,
-    status,
-    isLoading: fetchQrCodeLoading,
+    fetchStatus: fetchQrCodeStatus,
+    isFetching: fetchQrCodeLoading,
     refetch: fetchQrCodeDetails,
-  } = useQuery(['users'], fetchUsers, {
+  } = useQuery(['users'], fetchQr, {
     enabled: false,
+    retry: false,
     onError: error => {
       console.log('error', error);
     },
     onSuccess: async res => {
+      console.log('state?.uuid123,', uuid);
       const {message, phoneNumber, dish} = res?.data;
       const data: OrderModel = {
-        uuid: state?.uuid,
+        uuid: uuid,
         phoneNumber: phoneNumber,
         dish: dish,
       };
-      openSms(data, message, name);
+      if (message !== 'error') {
+        addOrder(data);
+        openSms(data, message, name);
+      }
     },
   });
 
-  // const {isLoading: fetchQrCodeLoading, refetch: fetchQrCodeDetails} = useQuery(
-  //   [qrCode, 'qrCode'],
-  //   () => getIdByQrCode(qrCode),
-  //   {
-  //     retry: false,
-  //     enabled: false,
-  //     onError: error => {
-  //       console.log('error', error);
-  //     },
-  //     onSuccess: async res => {
-  //       const {message, phoneNumber, dish} = res?.data;
-  //       const data: OrderModel = {
-  //         uuid: state?.uuid,
-  //         phoneNumber: phoneNumber,
-  //         dish: dish,
-  //       };
-  //       openSms(data, message, name);
-  //     },
-  //   },
-  // );
-
   useEffect(() => {
-    console.log('qrCode.length', state?.qrCode);
-    if (state?.qrCode !== undefined) {
+    if (qrCode !== undefined) {
       fetchQrCodeDetails();
     }
-  }, [state?.qrCode]);
+  }, [qrCode]);
+
   const handleQRCodeRead = (event: any) => {
     const qrId = event?.nativeEvent?.codeStringValue;
     // setQrCode(qrId);
     dispatch({type: 'SET_QRCODE', payload: qrId});
     setScanning(false);
   };
-
+  const isLoadingV3 = fetchQrCodeLoading && fetchQrCodeStatus !== 'idle';
   return (
     <View style={styles.container}>
-      {
-        // fetchQrCodeLoading ? (
-        //   <Text style={[styles.loadingText]}>Loading...</Text>
-        // ) :
-        scanning ? (
-          <QrCodeCamera
-            onPress={() => setScanning(!scanning)}
-            scanning={scanning}
-            name={name}
-            onReadCode={(event: string) => handleQRCodeRead(event)}
-          />
-        ) : (
-          <View style={[styles.contentWrap]}>
-            <View style={{flex: 1}}>
-              <Text style={styles.titleStyle}>Scan & Go</Text>
-              <View style={styles.textBoxWrapper}>
-                <Text>Your Name</Text>
-                <TextInput
-                  value={name}
-                  style={styles.textInputStyle}
-                  onChangeText={e => setName(e)}
-                />
-              </View>
-              {myOrders.length > 0 && <MyOrders data={myOrders} />}
+      {isLoadingV3 ? (
+        <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+          <Text style={[styles.loadingText]}>Loading...</Text>
+        </View>
+      ) : scanning ? (
+        <QrCodeCamera
+          onPress={() => setScanning(!scanning)}
+          scanning={scanning}
+          name={name}
+          onReadCode={(event: string) => handleQRCodeRead(event)}
+        />
+      ) : (
+        <View style={[styles.contentWrap]}>
+          <View style={{flex: 1}}>
+            <Text style={styles.titleStyle}>Scan & Go</Text>
+            <View style={styles.textBoxWrapper}>
+              <Text>Your Name</Text>
+              <TextInput
+                value={name}
+                style={styles.textInputStyle}
+                onChangeText={e => setName(e)}
+              />
             </View>
-            <View style={styles.btnMainWrap}>
-              <View style={styles.buttonWrapper}>
-                <Button
-                  disabled={name?.length > 0 || scanning ? false : true}
-                  title="Scan QR"
-                  color="#841584"
-                  onPress={() => {
-                    setScanning(!scanning);
-                    // refetchhello();
-                  }}
-                />
-              </View>
+            {myOrders.length > 0 && <MyOrders data={myOrders} />}
+          </View>
+          <View style={styles.btnMainWrap}>
+            <View style={styles.buttonWrapper}>
+              <Button
+                disabled={name?.length > 0 || scanning ? false : true}
+                title="Scan QR"
+                color="#B6E565"
+                onPress={() => {
+                  dispatch({type: 'SET_QRCODE', payload: undefined});
+                  setScanning(!scanning);
+                  // refetchhello();
+                }}
+              />
             </View>
           </View>
-        )
-      }
+        </View>
+      )}
     </View>
   );
 };
@@ -178,9 +151,6 @@ const getStyles = ({width}: any) => {
       marginVertical: 30,
       width: '40%',
     },
-    btnStyle: {
-      width: '30%',
-    },
     btnMainWrap: {
       alignItems: 'center',
     },
@@ -188,18 +158,10 @@ const getStyles = ({width}: any) => {
       paddingHorizontal: 20,
       flex: 1,
     },
-    camWrap: {
-      position: 'relative',
-      flex: 1,
-    },
-    camWrapBtn: {
-      position: 'absolute',
-      zIndex: 9999,
-      bottom: 10,
-      right: width / 2,
-    },
     loadingText: {
       textAlign: 'center',
+      fontWeight: 'bold',
+      fontSize: 16,
     },
   });
 

@@ -1,4 +1,5 @@
-import React, {createContext, useReducer, useContext} from 'react';
+import React, {createContext, useReducer, useContext, useEffect} from 'react';
+import DeviceInfo from 'react-native-device-info';
 
 const initialState = {
   uuid: null, // Initialize UUID as null
@@ -24,6 +25,17 @@ export const useAppContext = () => {
 
 export const AppContextProvider = ({children}) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
+
+  // Function to set the UUID in global state
+  const setUUID = async () => {
+    const newUUID = await DeviceInfo.getUniqueId();
+    console.log("newUUID",newUUID)
+    dispatch({type: 'SET_UUID', payload: newUUID});
+  };
+
+  useEffect(() => {
+    setUUID();
+  }, []);
 
   return (
     <AppContext.Provider value={{state, dispatch}}>

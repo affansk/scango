@@ -7,8 +7,7 @@ const useFirebaseAPI = () => {
   const ordersCollection = firestore().collection('Orders');
   const {state, dispatch} = useAppContext();
   const getAllOrders = async () => {
-    firestore()
-      .collection('Orders')
+    ordersCollection
       // Filter results
       .where('uuid', '==', state?.uuid)
       .get()

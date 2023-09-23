@@ -11,13 +11,12 @@ const useGeneralFunctions = () => {
       SendSMS.send(
         {
           body: message.replace('{{Full Name}}', name),
-          recipients: ['+971562546537'],
+          recipients: [data?.phoneNumber],
           successTypes: ['all', 'sent', 'queued', 'failed', 'outbox'],
           allowAndroidSendWithoutReadPermission: true,
         },
         (completed, cancelled, error) => {
           console.log('completed:', completed, cancelled, error);
-          addOrder(data);
           dispatch({type: 'SET_QRCODE', payload: undefined});
         },
       );

@@ -20,16 +20,6 @@ const QrCodeCamera: React.FC<QrCodeCameraProps> = ({
   const showQRCodeCamera = () => {
     return (
       <View style={[styles.camWrap]}>
-        <View style={[styles.camWrapBtn]}>
-          <Button
-            disabled={name?.length > 0 || scanning ? false : true}
-            title="Close"
-            color="#841584"
-            onPress={() => {
-              onPress();
-            }}
-          />
-        </View>
         <Camera
           style={{flex: 1}}
           scanBarcode={true}
@@ -38,6 +28,16 @@ const QrCodeCamera: React.FC<QrCodeCameraProps> = ({
           laserColor="red"
           frameColor="white"
         />
+        <View style={[styles.camWrapBtn]}>
+          <Button
+            disabled={name?.length > 0 || scanning ? false : true}
+            title="Close"
+            color="#B6E565"
+            onPress={() => {
+              onPress();
+            }}
+          />
+        </View>
       </View>
     );
   };
@@ -89,7 +89,9 @@ const getStyles = ({width}: any) => {
       position: 'absolute',
       zIndex: 9999,
       bottom: 10,
-      right: width / 2,
+      right: 0,
+      left: 0,
+      alignItems: 'center',
     },
     loadingText: {
       textAlign: 'center',
