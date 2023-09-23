@@ -1,6 +1,5 @@
 import React, {Children} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {NativeModules} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 
 interface QrCodeCameraProps {

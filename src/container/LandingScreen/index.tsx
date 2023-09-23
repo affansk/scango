@@ -9,11 +9,11 @@ import {
   TextInput,
 } from 'react-native';
 import {useQuery} from '@tanstack/react-query';
-import {getIdByQrCode} from '../../services/api';
-import {useFirebaseAPI, useGeneralFunction} from '../../hooks';
-import {OrderModel} from '../../services/models/appModels';
-import {MyOrders, QrCodeCamera} from '../../components';
-import {useAppContext} from '../../services/context/AppContext';
+import {getIdByQrCode} from '@app/services/api';
+import {useFirebaseAPI, useGeneralFunction} from '@app/hooks';
+import {OrderModel} from '@app/services/models/appModels';
+import {MyOrders, QrCodeCamera} from '@app/components';
+import {useAppContext} from '@app/services/context/AppContext';
 
 // Get the screen width
 const {width} = Dimensions.get('screen');
