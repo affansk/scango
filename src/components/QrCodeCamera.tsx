@@ -10,8 +10,6 @@ interface QrCodeCameraProps {
 }
 
 const QrCodeCamera: React.FC<QrCodeCameraProps> = ({
-  scanning = false,
-  name,
   onPress = () => {},
   onReadCode = () => {},
 }: Props) => {
@@ -30,7 +28,7 @@ const QrCodeCamera: React.FC<QrCodeCameraProps> = ({
         />
         <View style={[styles.camWrapBtn]}>
           <Button
-            disabled={name?.length > 0 || scanning ? false : true}
+            //disabled={name?.length > 0 || scanning ? false : true}
             title="Close"
             color="#B6E565"
             onPress={() => {
@@ -44,43 +42,8 @@ const QrCodeCamera: React.FC<QrCodeCameraProps> = ({
   return <View style={[styles.camWrap]}>{showQRCodeCamera()}</View>;
 };
 
-const getStyles = ({width}: any) => {
+const getStyles = ({}: any) => {
   return StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#64E1FF',
-    },
-    textBoxWrapper: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginTop: 10,
-    },
-    titleStyle: {
-      textAlign: 'center',
-      fontSize: 16,
-      fontWeight: 'bold',
-    },
-    textInputStyle: {
-      borderWidth: 1,
-      borderColor: '#000',
-      height: 30,
-      flex: 1,
-      marginLeft: 10,
-      backgroundColor: '#fff',
-      padding: 0,
-      paddingLeft: 10,
-    },
-    buttonWrapper: {
-      marginVertical: 30,
-      width: '40%',
-    },
-    btnMainWrap: {
-      alignItems: 'center',
-    },
-    contentWrap: {
-      paddingHorizontal: 20,
-      flex: 1,
-    },
     camWrap: {
       position: 'relative',
       flex: 1,
@@ -92,9 +55,6 @@ const getStyles = ({width}: any) => {
       right: 0,
       left: 0,
       alignItems: 'center',
-    },
-    loadingText: {
-      textAlign: 'center',
     },
   });
 };

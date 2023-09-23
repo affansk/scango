@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 
 import {
   View,
@@ -12,30 +12,42 @@ import {useQuery} from '@tanstack/react-query';
 import {getIdByQrCode} from '../../services/api';
 import {useFirebaseAPI, useGeneralFunction} from '../../hooks';
 import {OrderModel} from '../../services/models/appModels';
-import MyOrders from '../../components/myOrders';
-import QrCodeCamera from '../../components/QrCodeCamera';
+import {MyOrders, QrCodeCamera} from '../../components';
 import {useAppContext} from '../../services/context/AppContext';
-import DeviceInfo from 'react-native-device-info';
+
+// Get the screen width
 const {width} = Dimensions.get('screen');
+
+// Define the LandingScreen component
 const LandingScreen = () => {
+  // State variables
   const [name, setName] = useState<string>('');
   const [scanning, setScanning] = useState<boolean>(false);
 
+  // Styles based on screen width
   const styles = getStyles({width});
+
+  // Custom hooks for Firebase API and general functions
   const {getAllOrders, myOrders, addOrder} = useFirebaseAPI();
   const {openSms} = useGeneralFunction();
+
+  // Context for the app
   const {state, dispatch} = useAppContext();
   const {uuid, qrCode} = state;
+
+  // Effect to load orders when uuid changes
   useEffect(() => {
     if (uuid !== null) {
-      console.log('state?.uuid', uuid);
       getAllOrders();
     }
   }, [uuid]);
 
+  // Function to fetch data based on QR code
   const fetchQr = async () => {
     return await getIdByQrCode(qrCode);
   };
+
+  // UseQuery hook to fetch QR code details
   const {
     fetchStatus: fetchQrCodeStatus,
     isFetching: fetchQrCodeLoading,
@@ -47,7 +59,6 @@ const LandingScreen = () => {
       console.log('error', error);
     },
     onSuccess: async res => {
-      console.log('state?.uuid123,', uuid);
       const {message, phoneNumber, dish} = res?.data;
       const data: OrderModel = {
         uuid: uuid,
@@ -61,32 +72,50 @@ const LandingScreen = () => {
     },
   });
 
+  // Effect to fetch QR code details when qrCode changes
   useEffect(() => {
     if (qrCode !== undefined) {
       fetchQrCodeDetails();
     }
   }, [qrCode]);
 
+  // Function to handle QR code reading
   const handleQRCodeRead = (event: any) => {
     const qrId = event?.nativeEvent?.codeStringValue;
-    // setQrCode(qrId);
     dispatch({type: 'SET_QRCODE', payload: qrId});
     setScanning(false);
   };
-  const isLoadingV3 = fetchQrCodeLoading && fetchQrCodeStatus !== 'idle';
+
+  // Memoized MyOrders component to improve performance
+  const memoizedMyOrders = useMemo(() => {
+    if (myOrders.length > 0) {
+      return <MyOrders data={myOrders} />;
+    }
+    return null; // Return null if myOrders is empty
+  }, [myOrders]);
+
+  // Memoized QrCodeCamera component to improve performance
+  const memoizedQrCodeComp = useMemo(() => {
+    return (
+      <QrCodeCamera
+        onPress={() => setScanning(!scanning)}
+        onReadCode={(event: string) => handleQRCodeRead(event)}
+      />
+    );
+  }, [scanning]);
+
+  // Determine if QR code is loading
+  const isLoadingQRCode = fetchQrCodeLoading && fetchQrCodeStatus !== 'idle';
+
+  // Render the component
   return (
     <View style={styles.container}>
-      {isLoadingV3 ? (
-        <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
+      {isLoadingQRCode ? (
+        <View style={[styles.loadingQrScreen]}>
           <Text style={[styles.loadingText]}>Loading...</Text>
         </View>
       ) : scanning ? (
-        <QrCodeCamera
-          onPress={() => setScanning(!scanning)}
-          scanning={scanning}
-          name={name}
-          onReadCode={(event: string) => handleQRCodeRead(event)}
-        />
+        memoizedQrCodeComp
       ) : (
         <View style={[styles.contentWrap]}>
           <View style={{flex: 1}}>
@@ -99,7 +128,7 @@ const LandingScreen = () => {
                 onChangeText={e => setName(e)}
               />
             </View>
-            {myOrders.length > 0 && <MyOrders data={myOrders} />}
+            {memoizedMyOrders}
           </View>
           <View style={styles.btnMainWrap}>
             <View style={styles.buttonWrapper}>
@@ -121,8 +150,14 @@ const LandingScreen = () => {
   );
 };
 
+// Styles for the component
 const getStyles = ({width}: any) => {
   const style = StyleSheet.create({
+    loadingQrScreen: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      flex: 1,
+    },
     container: {
       flex: 1,
       backgroundColor: '#64E1FF',

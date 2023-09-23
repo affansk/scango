@@ -29,7 +29,6 @@ export const AppContextProvider = ({children}) => {
   // Function to set the UUID in global state
   const setUUID = async () => {
     const newUUID = await DeviceInfo.getUniqueId();
-    console.log("newUUID",newUUID)
     dispatch({type: 'SET_UUID', payload: newUUID});
   };
 

@@ -1,6 +1,7 @@
-import ViewC from './ViewC';
+
+import MyOrders from './myOrders';
+import QrCodeCamera from './QrCodeCamera';
 import {TextVariants} from './TextVariants';
 import StatBar from './StatusBar';
-import {useToast} from 'react-native-toast-notifications';
 
-export {ViewC, TextVariants, StatBar, useToast};
+export {MyOrders, QrCodeCamera, TextVariants, StatBar};

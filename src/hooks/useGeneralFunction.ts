@@ -16,7 +16,6 @@ const useGeneralFunctions = () => {
           allowAndroidSendWithoutReadPermission: true,
         },
         (completed, cancelled, error) => {
-          console.log('completed:', completed, cancelled, error);
           dispatch({type: 'SET_QRCODE', payload: undefined});
         },
       );

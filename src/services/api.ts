@@ -22,7 +22,6 @@ instance.interceptors.request.use(
 // Add a response interceptor
 instance.interceptors.response.use(
   function (response) {
-    console.log('response122', response);
     const {message} = response?.data;
 
     if (message === 'error') {
