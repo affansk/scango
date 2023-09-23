@@ -1,2 +1,3 @@
 import useFirebaseAPI from './useFirebaseAPI';
-export {useFirebaseAPI};
+import useGeneralFunction from './useGeneralFunction';
+export {useFirebaseAPI, useGeneralFunction};

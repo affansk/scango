@@ -2,6 +2,7 @@ import React, {createContext, useReducer, useContext} from 'react';
 
 const initialState = {
   uuid: null, // Initialize UUID as null
+  qrCode: undefined,
 };
 
 const AppContext = createContext();
@@ -10,6 +11,8 @@ const appReducer = (state, action) => {
   switch (action.type) {
     case 'SET_UUID':
       return {...state, uuid: action.payload};
+    case 'SET_QRCODE':
+      return {...state, qrCode: action.payload};
     default:
       return state;
   }
