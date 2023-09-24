@@ -2,15 +2,10 @@ import {OrderModel} from '../services/models/appModels';
 import {useAppContext} from '../services/context/AppContext';
 import SendSMS from 'react-native-sms';
 
-import useFirebaseAPI from './useFirebaseAPI';
 import {Alert, Linking} from 'react-native';
-import {
-  PERMISSIONS,
-  requestMultiple,
-} from '@app/components';
+import {PERMISSIONS, requestMultiple} from '@app/components';
 const useGeneralFunctions = () => {
-  const {addOrder} = useFirebaseAPI();
-  const {state, dispatch} = useAppContext();
+  const {dispatch} = useAppContext();
   const openSms = async (data: OrderModel, message: string, name: string) => {
     const isSmsAvailable = await Linking.canOpenURL('sms:');
     if (!isSmsAvailable) {
@@ -42,8 +37,6 @@ const useGeneralFunctions = () => {
           Alert.alert('Permission is blocked, please allow the permission');
           Linking.openSettings();
         }
-
-        console.log('FaceID', statuses[PERMISSIONS.IOS.FACE_ID]);
       })
       .catch(error => {
         Alert.alert('Please enable the permission');

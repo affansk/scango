@@ -37,10 +37,9 @@ instance.interceptors.response.use(
     return response;
   },
   function (error) {
-    const {data} = error?.response;
-    global.toast.show(data?.message, {
+    global.toast.show('Somethinf is not well With Your API', {
       type: 'DANGER',
-      placement: 'bottom',
+      placement: 'center',
       duration: 2000,
       animationType: 'zoom-in',
     });
