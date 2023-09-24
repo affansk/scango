@@ -1,12 +1,14 @@
 package com.scan_go;
 import expo.modules.ReactActivityDelegateWrapper;
-
+import android.os.Bundle;
+import com.zoontek.rnbootsplash.RNBootSplash;
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactActivityDelegate;
 import android.content.Intent; // <-- include if not already there
 import com.tkporter.sendsms.SendSMSPackage;
+
 public class MainActivity extends ReactActivity {
 
   /**
@@ -18,6 +20,11 @@ public class MainActivity extends ReactActivity {
     return "scan_go";
   }
 
+@Override
+  protected void onCreate(Bundle savedInstanceState) {
+    RNBootSplash.init(this, R.style.BootTheme); // ⬅️ initialize the splash screen
+    super.onCreate(savedInstanceState); // or super.onCreate(null) with react-native-screens
+  }
   /**
    * Returns the instance of the {@link ReactActivityDelegate}. Here we use a util class {@link
    * DefaultReactActivityDelegate} which allows you to easily enable Fabric and Concurrent React
@@ -32,9 +39,10 @@ public class MainActivity extends ReactActivity {
         DefaultNewArchitectureEntryPoint.getFabricEnabled()));
   }
   @Override
-public void onActivityResult(int requestCode, int resultCode, Intent data) {
-	super.onActivityResult(requestCode, resultCode, data);
-	//probably some other stuff here
-	SendSMSPackage.getInstance().onActivityResult(requestCode, resultCode, data);
-}
+  public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+    //probably some other stuff here
+    SendSMSPackage.getInstance().onActivityResult(requestCode, resultCode, data);
+  }
+
 }

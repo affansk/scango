@@ -16,6 +16,7 @@
 		60E66AD84F7A15920A7F65BE /* Pods_scan_go_scan_goTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CB2833ADD4915DD677A1AEDF /* Pods_scan_go_scan_goTests.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		D488BF5A2ABDBC1700AE990F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = D488BF592ABDBC1700AE990F /* GoogleService-Info.plist */; };
+		D488BF5C2AC061A000AE990F /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D488BF5B2AC061A000AE990F /* BootSplash.storyboard */; };
 		E9B307BA67D6E554FD808304 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4E658F35C40D58E1ED8AB8D /* ExpoModulesProvider.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +49,7 @@
 		AABC8324CB699F6DF1CA3B03 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-scan_go-scan_goTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		CB2833ADD4915DD677A1AEDF /* Pods_scan_go_scan_goTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_scan_go_scan_goTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D488BF592ABDBC1700AE990F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		D488BF5B2AC061A000AE990F /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = scan_go/BootSplash.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F4E658F35C40D58E1ED8AB8D /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-scan_go/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -139,6 +141,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				D488BF5B2AC061A000AE990F /* BootSplash.storyboard */,
 				D488BF592ABDBC1700AE990F /* GoogleService-Info.plist */,
 				13B07FAE1A68108700A75B9A /* scan_go */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -281,6 +284,7 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				D488BF5A2ABDBC1700AE990F /* GoogleService-Info.plist in Resources */,
+				D488BF5C2AC061A000AE990F /* BootSplash.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -12,7 +12,7 @@ import {useQuery} from '@tanstack/react-query';
 import {getIdByQrCode} from '@app/services/api';
 import {useFirebaseAPI, useGeneralFunction} from '@app/hooks';
 import {OrderModel} from '@app/services/models/appModels';
-import {MyOrders, QrCodeCamera, SMS} from '@app/components';
+import {MyOrders, QrCodeCamera, BootSplash} from '@app/components';
 import {useAppContext} from '@app/services/context/AppContext';
 
 // Get the screen width
@@ -39,8 +39,21 @@ const LandingScreen = () => {
   useEffect(() => {
     if (uuid !== null) {
       getAllOrders();
+      BootSplash.hide({fade: true});
     }
+    
   }, [uuid]);
+
+  useEffect(() => {
+    const init = async () => {
+      // …do multiple sync or async tasks
+    };
+
+    init().finally(async () => {
+      await BootSplash.hide({ fade: true });
+      console.log("BootSplash has been hidden successfully");
+    });
+  }, []);
 
   // Function to fetch data based on QR code
   const fetchQr = async () => {
