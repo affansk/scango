@@ -43,7 +43,6 @@ const LandingScreen = () => {
     }
   }, [uuid]);
 
-
   // Function to fetch data based on QR code
   const fetchQr = async () => {
     return await getIdByQrCode(qrCode);
@@ -125,6 +124,7 @@ const LandingScreen = () => {
             <View style={styles.textBoxWrapper}>
               <Text>Your Name</Text>
               <TextInput
+                placeholder="Enter your name"
                 value={name}
                 style={styles.textInputStyle}
                 onChangeText={e => setName(e)}
@@ -184,6 +184,7 @@ const getStyles = ({width}: any) => {
       backgroundColor: '#fff',
       padding: 0,
       paddingLeft: 10,
+      color: '#000',
     },
     buttonWrapper: {
       marginVertical: 30,
