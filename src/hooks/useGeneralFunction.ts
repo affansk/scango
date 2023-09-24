@@ -5,11 +5,8 @@ import SendSMS from 'react-native-sms';
 import useFirebaseAPI from './useFirebaseAPI';
 import {Alert, Linking} from 'react-native';
 import {
-  check,
   PERMISSIONS,
-  RESULTS,
   requestMultiple,
-  checkMultiple,
 } from '@app/components';
 const useGeneralFunctions = () => {
   const {addOrder} = useFirebaseAPI();

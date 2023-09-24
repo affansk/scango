@@ -43,16 +43,6 @@ const LandingScreen = () => {
     }
   }, [uuid]);
 
-  useEffect(() => {
-    const init = async () => {
-      // …do multiple sync or async tasks
-    };
-
-    init().finally(async () => {
-      await BootSplash.hide({fade: true});
-      console.log('BootSplash has been hidden successfully');
-    });
-  }, []);
 
   // Function to fetch data based on QR code
   const fetchQr = async () => {
