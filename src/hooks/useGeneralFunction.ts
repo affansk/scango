@@ -1,13 +1,19 @@
 import {OrderModel} from '../services/models/appModels';
 import {useAppContext} from '../services/context/AppContext';
 import SendSMS from 'react-native-sms';
+
 import useFirebaseAPI from './useFirebaseAPI';
+import {Alert, Linking} from 'react-native/types';
 
 const useGeneralFunctions = () => {
   const {addOrder} = useFirebaseAPI();
   const {state, dispatch} = useAppContext();
   const openSms = async (data: OrderModel, message: string, name: string) => {
-    if (message !== 'error') {
+    const isSmsAvailable = await Linking.canOpenURL('sms:');
+    if (!isSmsAvailable) {
+      Alert.alert('Does Not Support Sending Message');
+      return false;
+    } else if (message !== 'error') {
       SendSMS.send(
         {
           body: message.replace('{{Full Name}}', name),
