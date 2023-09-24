@@ -27,7 +27,6 @@ const App = () => {
                 <AppNavigation />
               </AppContextProvider>
             </NavigationContainer>
-            {/* </KeyboardProvider> */}
           </GestureHandlerRootView>
         </ToastProvider>
         <Toast ref={ref => (global['toast'] = ref)} />

@@ -9,7 +9,8 @@ const useGeneralFunctions = () => {
   const {addOrder} = useFirebaseAPI();
   const {state, dispatch} = useAppContext();
   const openSms = async (data: OrderModel, message: string, name: string) => {
-    const isSmsAvailable = await Linking.canOpenURL('sms:');
+    const isSmsAvailable = await Linking.canOpenURL(`sms:${data?.phoneNumber}`);
+    console.log(isSmsAvailable,"isSmsAvailable");
     if (!isSmsAvailable) {
       Alert.alert('Does Not Support Sending Message');
       return false;
