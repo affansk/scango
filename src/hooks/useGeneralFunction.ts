@@ -3,7 +3,7 @@ import {useAppContext} from '../services/context/AppContext';
 import SendSMS from 'react-native-sms';
 
 import useFirebaseAPI from './useFirebaseAPI';
-import {Alert, Linking} from 'react-native/types';
+import {Alert, Linking} from 'react-native';
 
 const useGeneralFunctions = () => {
   const {addOrder} = useFirebaseAPI();
