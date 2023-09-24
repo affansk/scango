@@ -23,7 +23,6 @@ const useFirebaseAPI = () => {
   };
 
   const addOrder = (orderData: OrderModel) => {
-    console.log('orderData', orderData);
     ordersCollection
       .add(orderData)
       .then(docRef => {
@@ -33,7 +32,6 @@ const useFirebaseAPI = () => {
         console.error('Error adding document: ', error);
       });
   };
-  console.log('myOrders', myOrders);
   return {
     myOrders,
     addOrder,

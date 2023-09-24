@@ -19,7 +19,7 @@ const MyOrders: React.FC<QrCodeCameraProps> = ({data = []}: Props) => {
 
   return (
     <View style={{marginTop: 29}}>
-      <Text style={[styles.pTitle]}>Past Orders</Text>
+      <Text style={[styles.pTitle]}>Past Orders/Scans</Text>
       <Text style={[styles.pTitle, {textAlign: 'center'}]}>Dish</Text>
       <FlatList
         showsVerticalScrollIndicator={false}
