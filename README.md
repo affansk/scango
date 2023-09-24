@@ -28,6 +28,10 @@ The above command will create Release Build, so you can install the app in your 
 5. react native firebase with firestore for storing scan orders.
 6. React Qurery for managing API response and if needed for caching API records
 
+# Note
+The App is Based on Bare React Native Project not Expo, we have use some expo configuration for properly handle sms App.
+
+
 
 
 
