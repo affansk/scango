@@ -1201,6 +1201,8 @@ PODS:
     - RNFBApp
   - RNGestureHandler (2.13.1):
     - React-Core
+  - RNPermissions (3.9.2):
+    - React-Core
   - RNScreens (3.25.0):
     - React-Core
     - React-RCTImage
@@ -1265,6 +1267,7 @@ DEPENDENCIES:
   - "RNFBApp (from `../node_modules/@react-native-firebase/app`)"
   - "RNFBFirestore (from `../node_modules/@react-native-firebase/firestore`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNScreens (from `../node_modules/react-native-screens`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -1398,6 +1401,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-firebase/firestore"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNScreens:
     :path: "../node_modules/react-native-screens"
   Yoga:
@@ -1473,10 +1478,11 @@ SPEC CHECKSUMS:
   RNFBApp: af276a038f2e1488d59920697bba97b43f83164c
   RNFBFirestore: 5462679c91d0057b8b32ac6ab89c417db9eb4d3c
   RNGestureHandler: 38aa38413896620338948fbb5c90579a7b1c3fde
+  RNPermissions: 7f93fea75d6ea684fe600b08e2c244098a49244b
   RNScreens: 85d3880b52d34db7b8eeebe2f1a0e807c05e69fa
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: 3efc43e0d48686ce2e8c60f99d4e6bd349aff981
 
-PODFILE CHECKSUM: e348b6932e7482b718056423b8ba218911ad1c41
+PODFILE CHECKSUM: 02ca2276f1937e6f6ef47e57c5f8563d8e68e977
 
 COCOAPODS: 1.12.0

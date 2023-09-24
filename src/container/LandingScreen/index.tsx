@@ -29,7 +29,7 @@ const LandingScreen = () => {
 
   // Custom hooks for Firebase API and general functions
   const {getAllOrders, myOrders, addOrder} = useFirebaseAPI();
-  const {openSms} = useGeneralFunction();
+  const {openSms, checkCameraPermission} = useGeneralFunction();
 
   // Context for the app
   const {state, dispatch} = useAppContext();
@@ -41,7 +41,6 @@ const LandingScreen = () => {
       getAllOrders();
       BootSplash.hide({fade: true});
     }
-    
   }, [uuid]);
 
   useEffect(() => {
@@ -50,8 +49,8 @@ const LandingScreen = () => {
     };
 
     init().finally(async () => {
-      await BootSplash.hide({ fade: true });
-      console.log("BootSplash has been hidden successfully");
+      await BootSplash.hide({fade: true});
+      console.log('BootSplash has been hidden successfully');
     });
   }, []);
 
@@ -151,6 +150,7 @@ const LandingScreen = () => {
                 color="#B6E565"
                 onPress={() => {
                   dispatch({type: 'SET_QRCODE', payload: undefined});
+                  checkCameraPermission();
                   setScanning(!scanning);
                   // refetchhello();
                 }}

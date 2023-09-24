@@ -4,13 +4,18 @@ import SendSMS from 'react-native-sms';
 
 import useFirebaseAPI from './useFirebaseAPI';
 import {Alert, Linking} from 'react-native';
-
+import {
+  check,
+  PERMISSIONS,
+  RESULTS,
+  requestMultiple,
+  checkMultiple,
+} from '@app/components';
 const useGeneralFunctions = () => {
   const {addOrder} = useFirebaseAPI();
   const {state, dispatch} = useAppContext();
   const openSms = async (data: OrderModel, message: string, name: string) => {
-    const isSmsAvailable = await Linking.canOpenURL(`sms:${data?.phoneNumber}`);
-    console.log(isSmsAvailable,"isSmsAvailable");
+    const isSmsAvailable = await Linking.canOpenURL('sms:');
     if (!isSmsAvailable) {
       Alert.alert('Does Not Support Sending Message');
       return false;
@@ -28,8 +33,28 @@ const useGeneralFunctions = () => {
       );
     }
   };
+
+  const checkCameraPermission = () => {
+    requestMultiple([PERMISSIONS.IOS.CAMERA, PERMISSIONS.ANDROID.CAMERA])
+      .then(statuses => {
+        console.log('Camera', statuses[PERMISSIONS.ANDROID.CAMERA]);
+        if (
+          statuses[PERMISSIONS.ANDROID.CAMERA] === 'blocked' ||
+          statuses[PERMISSIONS.IOS.CAMERA] === 'blocked'
+        ) {
+          Alert.alert('Permission is blocked, please allow the permission');
+          Linking.openSettings();
+        }
+
+        console.log('FaceID', statuses[PERMISSIONS.IOS.FACE_ID]);
+      })
+      .catch(error => {
+        Alert.alert('Please enable the permission');
+      });
+  };
   return {
     openSms,
+    checkCameraPermission,
   };
 };
 export default useGeneralFunctions;
