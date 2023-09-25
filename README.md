@@ -29,7 +29,9 @@ The above command will create Release Build, so you can install the app in your 
 6. React Qurery for managing API response and if needed for caching API records
 
 # Note
-The App is Based on Bare React Native Project not Expo, we have use  expo configuration for properly handle sms App.
+1. The App is Based on Bare React Native Project not Expo, we have use expo(android) configuration for properly handle sms App.
+2. Camera Will not Open in IOS simulator, we need to run the app in proper IOS device, for that we need development certificates.
+
 
 
 
