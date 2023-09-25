@@ -5,7 +5,7 @@ Welcome to ScanGo, a powerful mobile application that enables you to effortlessl
 
 # Run the following command:
 
-1. yarn install
+1. yarn install Also do Pod Install for IOS
 2. yarn run android:scango OR npx react-native run-android 
 3. npx react-native run-ios OR Open the Xcode and run (IOS)
 
