@@ -1,18 +1,11 @@
 import React, {useEffect, useMemo, useState} from 'react';
 
-import {
-  View,
-  Text,
-  StyleSheet,
-  Button,
-  Dimensions,
-  TextInput,
-} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, TextInput} from 'react-native';
 import {useQuery} from '@tanstack/react-query';
 import {getIdByQrCode} from '@app/services/api';
 import {useFirebaseAPI, useGeneralFunction} from '@app/hooks';
 import {OrderModel} from '@app/services/models/appModels';
-import {MyOrders, QrCodeCamera, BootSplash} from '@app/components';
+import {MyOrders, QrCodeCamera, BootSplash, Button} from '@app/components';
 import {useAppContext} from '@app/services/context/AppContext';
 
 // Get the screen width
@@ -135,9 +128,8 @@ const LandingScreen = () => {
           <View style={styles.btnMainWrap}>
             <View style={styles.buttonWrapper}>
               <Button
-                disabled={name?.length > 0 || scanning ? false : true}
                 title="Scan QR"
-                color="#B6E565"
+                disabled={name?.length > 0 || scanning ? false : true}
                 onPress={() => {
                   dispatch({type: 'SET_QRCODE', payload: undefined});
                   checkCameraPermission();

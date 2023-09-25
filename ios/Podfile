@@ -1,4 +1,4 @@
-require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
+# require File.join(File.dirname(`node --print "require.resolve('expo/package.json')"`), "scripts/autolinking")
 # Resolve react_native_pods.rb with node to allow for hoisting
  def node_require(script)
  # Resolve script with node to allow for hoisting
@@ -39,14 +39,14 @@ end
 target 'scan_go' do
   use_frameworks! :linkage => :static
   $RNFirebaseAsStaticFramework = true
-  use_expo_modules!
-  post_integrate do |installer|
-    begin
-      expo_patch_react_imports!(installer)
-    rescue => e
-      Pod::UI.warn e
-    end
-  end
+  # use_expo_modules!
+  # post_integrate do |installer|
+  #   begin
+  #     expo_patch_react_imports!(installer)
+  #   rescue => e
+  #     Pod::UI.warn e
+  #   end
+  # end
   config = use_native_modules!
 
 

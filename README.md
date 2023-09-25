@@ -7,7 +7,7 @@ Welcome to ScanGo, a powerful mobile application that enables you to effortlessl
 
 1. yarn install
 2. yarn run android:scango OR npx react-native run-android 
-3. npx react-native run-ios (IOS)
+3. npx react-native run-ios OR Open the Xcode and run (IOS)
 
 The Build will be Generated, which will take you to landing screen which has input box and a button to scan the qr code, if barcode is valid then it will open SMS App, where user can sent sms. also the scan order record is created in DB(firebase) for future refrences
 

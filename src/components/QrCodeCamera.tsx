@@ -1,6 +1,7 @@
 import React, {Children, useMemo} from 'react';
-import {View, Text, StyleSheet, Button, Dimensions} from 'react-native';
+import {View, Text, StyleSheet, Dimensions, Platform} from 'react-native';
 import {Camera} from 'react-native-camera-kit';
+import {Button} from '@app/components';
 interface QrCodeCameraProps {
   data?: Object;
   name?: string;
@@ -28,12 +29,10 @@ const QrCodeCamera: React.FC<QrCodeCameraProps> = ({
         />
         <View style={[styles.camWrapBtn]}>
           <Button
-            //disabled={name?.length > 0 || scanning ? false : true}
-            title="Close"
-            color="#B6E565"
-            onPress={() => {
-              onPress();
-            }}
+            title={'Close'}
+            disabled={false}
+            onPress={onPress}
+            onReadCode={onReadCode}
           />
         </View>
       </View>
@@ -51,7 +50,7 @@ const getStyles = ({}: any) => {
     camWrapBtn: {
       position: 'absolute',
       zIndex: 9999,
-      bottom: 10,
+      bottom: Platform.OS === 'ios' ? 20 : 10,
       right: 0,
       left: 0,
       alignItems: 'center',

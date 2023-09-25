@@ -2,7 +2,14 @@ import MyOrders from './myOrders';
 import QrCodeCamera from './QrCodeCamera';
 import StatBar from './StatusBar';
 import BootSplash from 'react-native-bootsplash';
-import {check, PERMISSIONS, RESULTS, requestMultiple, checkMultiple} from 'react-native-permissions';
+import Button from './Button';
+import {
+  check,
+  PERMISSIONS,
+  RESULTS,
+  requestMultiple,
+  checkMultiple,
+} from 'react-native-permissions';
 export {
   MyOrders,
   QrCodeCamera,
@@ -13,4 +20,5 @@ export {
   RESULTS,
   requestMultiple,
   checkMultiple,
+  Button,
 };

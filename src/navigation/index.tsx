@@ -6,13 +6,13 @@ import scanStack from '@app/navigation/scanStack';
 const Stack = createNativeStackNavigator();
 
 const appRoutes = {
-  [Routes.NAVIGATOR_PRE_LOGIN]: scanStack,
+  [Routes.NAVIGATOR_WRAPPER_STACK]: scanStack,
 };
 
 function AppNavigation() {
   return (
     <Stack.Navigator
-      initialRouteName={Routes.NAVIGATOR_PRE_LOGIN}
+      initialRouteName={Routes.NAVIGATOR_WRAPPER_STACK}
       screenOptions={{
         headerShown: false,
         gestureEnabled: false,
