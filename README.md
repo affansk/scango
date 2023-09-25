@@ -29,7 +29,7 @@ The above command will create Release Build, so you can install the app in your 
 6. React Qurery for managing API response and if needed for caching API records
 
 # Note
-The App is Based on Bare React Native Project not Expo, we have use some expo configuration for properly handle sms App.
+The App is Based on Bare React Native Project not Expo, we have use  expo configuration for properly handle sms App.
 
 
 
