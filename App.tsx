@@ -3,8 +3,6 @@ import {NavigationContainer} from '@react-navigation/native';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import AppNavigation from '@app/navigation';
 
-import '@app/constants/IMLocalize';
-
 import {StatBar} from '@app/components';
 import {ToastProvider} from 'react-native-toast-notifications';
 import Toast from 'react-native-toast-notifications';

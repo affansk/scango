@@ -8,9 +8,6 @@ import {OrderModel} from '@app/services/models/appModels';
 import {MyOrders, QrCodeCamera, BootSplash, Button} from '@app/components';
 import {useAppContext} from '@app/services/context/AppContext';
 
-// Get the screen width
-const {width} = Dimensions.get('screen');
-
 // Define the LandingScreen component
 const LandingScreen = () => {
   // State variables
@@ -18,7 +15,7 @@ const LandingScreen = () => {
   const [scanning, setScanning] = useState<boolean>(false);
 
   // Styles based on screen width
-  const styles = getStyles({width});
+  const styles = getStyles();
 
   // Custom hooks for Firebase API and general functions
   const {getAllOrders, myOrders, addOrder} = useFirebaseAPI();
@@ -146,7 +143,7 @@ const LandingScreen = () => {
 };
 
 // Styles for the component
-const getStyles = ({width}: any) => {
+const getStyles = () => {
   const style = StyleSheet.create({
     loadingQrScreen: {
       justifyContent: 'center',
